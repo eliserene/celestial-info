@@ -7,6 +7,7 @@
 var express = require("express"); // call express
 var app = express(); // define our app using express
 var bodyParser = require("body-parser");
+var sunCalc = require("suncalc"); //library for calcuating sun/moon positions and phases
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -26,6 +27,17 @@ router.get("/", function(req, res) {
 });
 
 // more routes for our API will happen here
+
+router.get("/moon/times", function(req, res) {
+  let moonTimes = sunCalc.getMoonTimes(
+    Date.now(),
+    -27.469771,
+    153.025124,
+    true
+  );
+  console.log(moonTimes);
+  res.json({ rise: moonTimes.rise, set: moonTimes.set });
+});
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
