@@ -12,6 +12,8 @@
     "body-parser": "^1.18.2",
     "date-fns": "^1.29.0",
     "express": "^4.16.3",
-    "suncalc": "^1.8.0"
+    "suncalc": "^1.8.0",
+    "mocha": "^5.1.1",
+    "chai": "^4.1.2"
   }
 }
