@@ -10,6 +10,7 @@ var bodyParser = require("body-parser");
 var sunCalc = require("suncalc"); //library for calcuating sun/moon positions and phases
 var dateFormater = require("date-fns/format");
 var dateParser = require("date-fns/parse");
+const handlers = require("./lib/handler.js");
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -36,11 +37,7 @@ router.get("/moon/times", function(req, res) {
     latitude: -27.469771,
     longitude: 153.025124
   };
-  let moonTimes = sunCalc.getMoonTimes(
-    dateParser(input.date),
-    input.latitude,
-    input.longitude
-  );
+  let moonTimes = handlers.findMoonRiseSet(input);
   console.log(moonTimes);
   res.json({ rise: moonTimes.rise, set: moonTimes.set });
 });
