@@ -8,6 +8,7 @@ describe("Array", function() {
   });
 });
 
+const handlers = require("../lib/handler.js");
 var sunCalc = require("suncalc"); //library for calcuating sun/moon positions and phases
 var dateParser = require("date-fns/parse");
 
@@ -20,11 +21,7 @@ describe("SunCalc", function() {
       latitude: -27,
       longitude: 153
     };
-    moonTimes = sunCalc.getMoonTimes(
-      dateParser(input.date),
-      input.latitude,
-      input.longitude
-    );
+    moonTimes = handlers.findMoonRiseSet(input);
   });
 
   describe("moon times", function() {
