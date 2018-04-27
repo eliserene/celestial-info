@@ -14,6 +14,7 @@ var dateParser = require("date-fns/parse");
 
 describe("SunCalc", function() {
   let moonTimes = {};
+  let moonIllumination = {};
   before(function() {
     // runs before all tests in this block
     let input = {
@@ -22,6 +23,7 @@ describe("SunCalc", function() {
       longitude: 153
     };
     moonTimes = handlers.findMoonRiseSet(input);
+    moonIllumination = handlers.findMoonIllumination(input);
   });
 
   describe("moon times", function() {
@@ -33,6 +35,12 @@ describe("SunCalc", function() {
     it("should return moon rise and set as Dates", function() {
       expect(moonTimes.rise).to.be.a("date");
       expect(moonTimes.set).to.be.a("date");
+    });
+  });
+
+  describe("moon illumination", function() {
+    it("should return the correct properties", function() {
+      expect(moonIllumination).to.have.property("fraction");
     });
   });
 });
