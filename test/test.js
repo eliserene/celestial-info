@@ -18,7 +18,7 @@ describe("SunCalc", function() {
   before(function() {
     // runs before all tests in this block
     let input = {
-      date: "2018/04/26",
+      date: "2018-04-26T00:00Z",
       latitude: -27,
       longitude: 153
     };
