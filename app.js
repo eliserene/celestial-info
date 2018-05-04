@@ -31,13 +31,13 @@ router.get("/", function(req, res) {
 
 // more routes for our API will happen here
 
-router.get("/moon/times", function(req, res) {
-  let input = {
-    date: "2018/04/26",
-    latitude: -27.469771,
-    longitude: 153.025124
+router.get("/moon/times/:latitude/:longitude/:date", function(req, res) {
+  let parameters = {
+    date: req.params.date,
+    latitude: req.params.latitude,
+    longitude: req.params.longitude
   };
-  let moonTimes = handlers.findMoonRiseSet(input);
+  let moonTimes = handlers.findMoonRiseSet(parameters);
   console.log(moonTimes);
   res.json({ rise: moonTimes.rise, set: moonTimes.set });
 });
