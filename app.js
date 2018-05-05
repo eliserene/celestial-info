@@ -42,6 +42,14 @@ router.get("/moon/times/:latitude/:longitude/:date", function(req, res) {
   res.json({ rise: moonTimes.rise, set: moonTimes.set });
 });
 
+router.get("/moon/phase/:date", function(req, res) {
+  let moonIllumination = handlers.findMoonIllumination(req.params.date);
+  let phase = handlers.moonPhaseAsText(moonIllumination.phase);
+  console.log(moonIllumination);
+  console.log(phase);
+  res.json({ phase: moonIllumination.phase, text: phase });
+});
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use("/api", router);

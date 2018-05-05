@@ -23,7 +23,7 @@ describe("SunCalc", function() {
       longitude: 153
     };
     moonTimes = handlers.findMoonRiseSet(input);
-    moonIllumination = handlers.findMoonIllumination(input);
+    moonIllumination = handlers.findMoonIllumination(input.date);
   });
 
   describe("moon times", function() {
@@ -41,6 +41,28 @@ describe("SunCalc", function() {
   describe("moon illumination", function() {
     it("should return the correct properties", function() {
       expect(moonIllumination).to.have.property("fraction");
+      expect(moonIllumination).to.have.property("phase");
+      expect(moonIllumination).to.have.property("angle");
+    });
+
+    it("should return the phase as a number between 0.0 and 1", function() {
+      expect(moonIllumination.phase).to.be.a("number");
+      expect(moonIllumination.phase).to.be.within(0.0, 1.0);
+    });
+  });
+});
+
+describe("Handlers", function() {
+  describe("moon phase text", function() {
+    it("should return a description of the moon phase", function() {
+      expect(handlers.moonPhaseAsText(0)).to.equal("New Moon");
+      expect(handlers.moonPhaseAsText(0.1)).to.equal("Waxing Crescent");
+      expect(handlers.moonPhaseAsText(0.25)).to.equal("First Quarter");
+      expect(handlers.moonPhaseAsText(0.4)).to.equal("Waxing Gibbous");
+      expect(handlers.moonPhaseAsText(0.5)).to.equal("Full Moon");
+      expect(handlers.moonPhaseAsText(0.7)).to.equal("Waning Gibbous");
+      expect(handlers.moonPhaseAsText(0.75)).to.equal("Last Quarter");
+      expect(handlers.moonPhaseAsText(0.9)).to.equal("Waning Crescent");
     });
   });
 });
