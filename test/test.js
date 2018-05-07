@@ -9,8 +9,9 @@ describe("Array", function() {
 });
 
 const helpers = require("../lib/helpers.js");
-var sunCalc = require("suncalc"); //library for calcuating sun/moon positions and phases
-var dateParser = require("date-fns/parse");
+const sunCalc = require("suncalc"); //library for calcuating sun/moon positions and phases
+const dateParser = require("date-fns/parse");
+const routes = require("../router.js");
 
 describe("SunCalc", function() {
   let moonTimes = {};
@@ -63,6 +64,14 @@ describe("helpers", function() {
       expect(helpers.moonPhaseAsText(0.7)).to.equal("Waning Gibbous");
       expect(helpers.moonPhaseAsText(0.75)).to.equal("Last Quarter");
       expect(helpers.moonPhaseAsText(0.9)).to.equal("Waning Crescent");
+    });
+  });
+
+  describe("router", function() {
+    describe("setting up the router", function() {
+      it("should return the same router", function() {
+        expect(routes).to.equal(routes);
+      });
     });
   });
 });
