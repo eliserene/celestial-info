@@ -31,24 +31,9 @@ router.get("/", function(req, res) {
 
 // more routes for our API will happen here
 
-router.get("/moon/times/:latitude/:longitude/:date", function(req, res) {
-  let parameters = {
-    date: req.params.date,
-    latitude: req.params.latitude,
-    longitude: req.params.longitude
-  };
-  let moonTimes = handlers.findMoonRiseSet(parameters);
-  console.log(moonTimes);
-  res.json({ rise: moonTimes.rise, set: moonTimes.set });
-});
+router.get("/moon/times/:latitude/:longitude/:date", handlers.MoonRiseSet);
 
-router.get("/moon/phase/:date", function(req, res) {
-  let moonIllumination = handlers.findMoonIllumination(req.params.date);
-  let phase = handlers.moonPhaseAsText(moonIllumination.phase);
-  console.log(moonIllumination);
-  console.log(phase);
-  res.json({ phase: moonIllumination.phase, text: phase });
-});
+router.get("/moon/phase/:date", handlers.MoonPhase);
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api

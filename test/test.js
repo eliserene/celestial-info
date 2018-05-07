@@ -8,7 +8,7 @@ describe("Array", function() {
   });
 });
 
-const handlers = require("../lib/handler.js");
+const helpers = require("../lib/helpers.js");
 var sunCalc = require("suncalc"); //library for calcuating sun/moon positions and phases
 var dateParser = require("date-fns/parse");
 
@@ -22,8 +22,8 @@ describe("SunCalc", function() {
       latitude: -27,
       longitude: 153
     };
-    moonTimes = handlers.findMoonRiseSet(input);
-    moonIllumination = handlers.findMoonIllumination(input.date);
+    moonTimes = helpers.findMoonRiseSet(input);
+    moonIllumination = helpers.findMoonIllumination(input.date);
   });
 
   describe("moon times", function() {
@@ -52,17 +52,17 @@ describe("SunCalc", function() {
   });
 });
 
-describe("Handlers", function() {
+describe("helpers", function() {
   describe("moon phase text", function() {
     it("should return a description of the moon phase", function() {
-      expect(handlers.moonPhaseAsText(0)).to.equal("New Moon");
-      expect(handlers.moonPhaseAsText(0.1)).to.equal("Waxing Crescent");
-      expect(handlers.moonPhaseAsText(0.25)).to.equal("First Quarter");
-      expect(handlers.moonPhaseAsText(0.4)).to.equal("Waxing Gibbous");
-      expect(handlers.moonPhaseAsText(0.5)).to.equal("Full Moon");
-      expect(handlers.moonPhaseAsText(0.7)).to.equal("Waning Gibbous");
-      expect(handlers.moonPhaseAsText(0.75)).to.equal("Last Quarter");
-      expect(handlers.moonPhaseAsText(0.9)).to.equal("Waning Crescent");
+      expect(helpers.moonPhaseAsText(0)).to.equal("New Moon");
+      expect(helpers.moonPhaseAsText(0.1)).to.equal("Waxing Crescent");
+      expect(helpers.moonPhaseAsText(0.25)).to.equal("First Quarter");
+      expect(helpers.moonPhaseAsText(0.4)).to.equal("Waxing Gibbous");
+      expect(helpers.moonPhaseAsText(0.5)).to.equal("Full Moon");
+      expect(helpers.moonPhaseAsText(0.7)).to.equal("Waning Gibbous");
+      expect(helpers.moonPhaseAsText(0.75)).to.equal("Last Quarter");
+      expect(helpers.moonPhaseAsText(0.9)).to.equal("Waning Crescent");
     });
   });
 });
