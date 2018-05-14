@@ -8,7 +8,7 @@ describe("Array", function() {
   });
 });
 
-const helpers = require("../lib/helpers");
+const helpers = require("../helpers");
 const sunCalc = require("suncalc"); //library for calcuating sun/moon positions and phases
 const dateParser = require("date-fns/parse");
 

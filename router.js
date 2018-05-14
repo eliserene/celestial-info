@@ -1,5 +1,5 @@
 const express = require("express");
-const handlers = require("./lib/handler.js");
+const handlers = require("./handler.js");
 const router = express.Router();
 
 // test route to make sure everything is working
