@@ -1,7 +1,4 @@
-var express = require("express");
 const helpers = require("./helpers.js");
-//var sunCalc = require("suncalc"); //library for calcuating sun/moon positions and phases
-//var dateParser = require("date-fns/parse");
 
 exports.MoonRiseSet = (req, res) => {
   let parameters = {
