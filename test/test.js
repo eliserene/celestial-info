@@ -66,3 +66,34 @@ describe("helpers", function() {
     });
   });
 });
+
+describe("fun with generators", function() {
+  describe("date generators", function() {
+    let addDays = require("date-fns/add_days");
+    let parse = require("date-fns/parse");
+    let format = require("date-fns/format");
+    const Iter = require("fl-generators");
+
+    let dates = function*(d) {
+      let index = 0;
+      while (true) yield addDays(d, index++);
+    };
+
+    var gen = dates(parse("2018-04-18T00:00Z"));
+    it("should return the initial date on first yield", function() {
+      expect(format(gen.next().value, "YYYY-MM-DD")).to.equal(
+        format(parse("2018-04-18T00:00Z"), "YYYY-MM-DD")
+      );
+    });
+    it("should return the next day on second yields", function() {
+      expect(format(gen.next().value, "YYYY-MM-DD")).to.equal(
+        format(parse("2018-04-19T00:00Z"), "YYYY-MM-DD")
+      );
+    });
+    it("should return the initial day + two on third yield", function() {
+      expect(format(gen.next().value, "YYYY-MM-DD")).to.equal(
+        format(parse("2018-04-20T00:00Z"), "YYYY-MM-DD")
+      );
+    });
+  });
+});
