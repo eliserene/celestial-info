@@ -7,6 +7,7 @@ app.get("/api/", function(req, res) {
 });
 app.get("/api/moon/times/:latitude/:longitude/:date", handlers.MoonRiseSet);
 app.get("/api/moon/phase/:date", handlers.MoonPhase);
+app.post("/api/dialogflowMoonWebhook", handlers.MoonWebhook);
 
 // START THE SERVER
 // =============================================================================

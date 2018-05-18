@@ -1,4 +1,6 @@
 const helpers = require("./helpers.js");
+const format = require("string-format");
+const dateParser = require("date-fns/parse");
 
 exports.MoonRiseSet = (req, res) => {
   let parameters = {
@@ -21,4 +23,21 @@ exports.MoonPhase = (req, res) => {
 
 exports.helloGET = (req, res) => {
   res.send("Hello World!");
+};
+
+exports.MoonWebhook = (req, res) => {
+  let date = req.body.queryResult.parameters["date"];
+  let time_period = req.body.queryResult.parameters["time-period"];
+  let moon_phase = req.body.queryResult.parameters["moon-phase"];
+  let output = "Sorry, I don't know the answer to that.";
+
+  if (date != "") {
+    let moonPhase = helpers.findMoonIllumination(date);
+    output = "The moon will be {0} on {1}".format(
+      moonPhase.phase,
+      dateParser.format(date, "dddd MMMM do YYYY")
+    );
+  }
+
+  res.json({ fulfillmentText: output }); // Return the results of the weather API to Dialogflow
 };
