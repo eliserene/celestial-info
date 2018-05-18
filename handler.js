@@ -1,6 +1,6 @@
 const helpers = require("./helpers.js");
 const format = require("string-format");
-const dateParser = require("date-fns/parse");
+const dateFormat = require("date-fns/format");
 
 exports.MoonRiseSet = (req, res) => {
   let parameters = {
@@ -33,9 +33,10 @@ exports.MoonWebhook = (req, res) => {
 
   if (date != "") {
     let moonPhase = helpers.findMoonIllumination(date);
-    output = "The moon will be {0} on {1}".format(
-      moonPhase.phase,
-      dateParser.format(date, "dddd MMMM do YYYY")
+    output = format(
+      "The moon will be {0} on {1}",
+      helpers.moonPhaseAsText(moonPhase.phase),
+      dateFormat(date, "dddd MMMM Do YYYY")
     );
   }
 
