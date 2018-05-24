@@ -1,7 +1,8 @@
 {
   "name": "in-the-sky",
   "version": "1.0.0",
-  "description": "an api to get information about the movements of the sun and moon",
+  "description":
+    "an api to get information about the movements of the sun and moon",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -9,6 +10,10 @@
   },
   "author": "Elise Dettrick",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eliserene/celestial-info.git"
+  },
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.1.1"
