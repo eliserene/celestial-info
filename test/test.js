@@ -67,25 +67,36 @@ describe("helpers", function() {
     });
   });
 
+  it("should return true if the phase occurs on the given date", function() {
+    //New moon
+    expect(
+      helpers.moonPhaseTest(dateParser("2018-05-14T00:00:00Z"), 0)
+    ).to.equal(false);
+    expect(
+      helpers.moonPhaseTest(dateParser("2018-05-15T00:00:00Z"), 0)
+    ).to.equal(true);
+    expect(
+      helpers.moonPhaseTest(dateParser("2018-05-16T00:00:00Z"), 0)
+    ).to.equal(false);
+
+    //Full moon
+    expect(
+      helpers.moonPhaseTest(dateParser("2018-05-29T00:00:00Z"), 0.5)
+    ).to.equal(true);
+  });
+
   it("should return the date of the next new moon", function() {
-    expect(helpers.newMoonTest(dateParser("2018-05-14T00:00:00Z"))).to.equal(
-      false
-    );
-    expect(helpers.newMoonTest(dateParser("2018-05-15T00:00:00Z"))).to.equal(
-      true
-    );
-    expect(helpers.newMoonTest(dateParser("2018-05-16T00:00:00Z"))).to.equal(
-      false
-    );
     let mayNewMoon = helpers.nextNewMoonDate(dateParser("2018-05-01T00:00Z"));
     expect(format(mayNewMoon, "YYYY-MM-DD")).to.equal(
       format(dateParser("2018-05-15T00:00Z"), "YYYY-MM-DD")
     );
   });
 
-  describe("moon phase on a particular date", function() {
-    it("should return the a description of the moon on a given date", function() {});
-  });
+  // it("should return the date of the next Full Moon", function() {});
+  //
+  // describe("moon phase on a particular date", function() {
+  //   it("should return the a description of the moon on a given date", function() {});
+  // });
 });
 
 describe("fun with generators", function() {
