@@ -11,6 +11,7 @@ describe("Array", function() {
 const helpers = require("../helpers");
 const sunCalc = require("suncalc"); //library for calcuating sun/moon positions and phases
 const dateParser = require("date-fns/parse");
+const format = require("date-fns/format");
 
 describe("SunCalc", function() {
   let moonTimes = {};
@@ -66,6 +67,22 @@ describe("helpers", function() {
     });
   });
 
+  it("should return the date of the next new moon", function() {
+    expect(helpers.newMoonTest(dateParser("2018-05-14T00:00:00Z"))).to.equal(
+      false
+    );
+    expect(helpers.newMoonTest(dateParser("2018-05-15T00:00:00Z"))).to.equal(
+      true
+    );
+    expect(helpers.newMoonTest(dateParser("2018-05-16T00:00:00Z"))).to.equal(
+      false
+    );
+    let mayNewMoon = helpers.nextNewMoonDate(dateParser("2018-05-01T00:00Z"));
+    expect(format(mayNewMoon, "YYYY-MM-DD")).to.equal(
+      format(dateParser("2018-05-15T00:00Z"), "YYYY-MM-DD")
+    );
+  });
+
   describe("moon phase on a particular date", function() {
     it("should return the a description of the moon on a given date", function() {});
   });
@@ -73,50 +90,32 @@ describe("helpers", function() {
 
 describe("fun with generators", function() {
   describe("date generators", function() {
-    let parse = require("date-fns/parse");
-    let format = require("date-fns/format");
     const Iter = require("fl-generators");
 
-    var gen = helpers.dates(parse("2018-04-18T00:00Z"));
+    var gen = helpers.dates(dateParser("2018-04-18T00:00Z"));
     it("should return the initial date on first yield", function() {
       expect(format(gen.next().value, "YYYY-MM-DD")).to.equal(
-        format(parse("2018-04-18T00:00Z"), "YYYY-MM-DD")
+        format(dateParser("2018-04-18T00:00Z"), "YYYY-MM-DD")
       );
     });
     it("should return the next day on second yields", function() {
       expect(format(gen.next().value, "YYYY-MM-DD")).to.equal(
-        format(parse("2018-04-19T00:00Z"), "YYYY-MM-DD")
+        format(dateParser("2018-04-19T00:00Z"), "YYYY-MM-DD")
       );
     });
     it("should return the initial day + two on third yield", function() {
       expect(format(gen.next().value, "YYYY-MM-DD")).to.equal(
-        format(parse("2018-04-20T00:00Z"), "YYYY-MM-DD")
+        format(dateParser("2018-04-20T00:00Z"), "YYYY-MM-DD")
       );
     });
 
-    let blockOfDates = Iter.of(helpers.dates(parse("2018-04-01T00:00Z")))
+    let blockOfDates = Iter.of(helpers.dates(dateParser("2018-04-01T00:00Z")))
       .take(33)
       .toArray();
     it("should return dates as an array", function() {
       expect(blockOfDates.length).to.equal(33);
       expect(format(blockOfDates[0], "YYYY-MM-DD")).to.equal(
-        format(parse("2018-04-01T00:00Z"), "YYYY-MM-DD")
-      );
-    });
-
-    it("should return the date of the next new moon", function() {
-      expect(helpers.newMoonTest(parse("2018-05-14T00:00:00Z"))).to.equal(
-        false
-      );
-      expect(helpers.newMoonTest(parse("2018-05-15T00:00:00Z"))).to.equal(true);
-      expect(helpers.newMoonTest(parse("2018-05-16T00:00:00Z"))).to.equal(
-        false
-      );
-      let mayNewMoon = helpers.nextNewMoonDate(parse("2018-05-01T00:00Z"));
-      console.log("result:");
-      console.log(mayNewMoon);
-      expect(format(mayNewMoon, "YYYY-MM-DD")).to.equal(
-        format(parse("2018-05-15T00:00Z"), "YYYY-MM-DD")
+        format(dateParser("2018-04-01T00:00Z"), "YYYY-MM-DD")
       );
     });
   });
