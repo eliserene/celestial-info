@@ -1,5 +1,5 @@
 const helpers = require("./helpers.js");
-const format = require("string-format");
+const format = require("date-fns/format");
 
 exports.MoonRiseSet = (req, res) => {
   let parameters = {
@@ -31,11 +31,32 @@ exports.MoonWebhook = (req, res) => {
   let output = "Sorry, I don't know the answer to that.";
 
   if (date != "") {
-    let moonPhase = helpers.findMoonIllumination(date);
     output = `The moon will be ${helpers.moonPhaseAsText(
-      moonPhase.phase
-    )} on ${dateFormat(date, "dddd MMMM Do YYYY")}`;
+      helpers.findMoonIllumination(date).phase
+    )} on ${format(date, "dddd MMMM Do YYYY")}`;
+  } else if (moon_phase != "") {
+    console.log(`moon phase = ${moon_phase}`);
+    output = findMoonPhaseOccurance(moon_phase);
   }
 
   res.json({ fulfillmentText: output }); // Return the results of the weather API to Dialogflow
+};
+
+let findMoonPhaseOccurance = function(moonPhase) {
+  switch (moonPhase) {
+    case "full-moon":
+      return `The next full moon will be on ${format(
+        helpers.nextMoonPhaseOccurance(new Date(), 0.5),
+        "dddd MMMM Do YYYY"
+      )}`;
+      break;
+    case "new-moon":
+      return `The next new moon will be on ${format(
+        helpers.nextMoonPhaseOccurance(new Date(), 0),
+        "dddd MMMM Do YYYY"
+      )}`;
+      break;
+    default:
+      return "I don't know when that phase is.";
+  }
 };
