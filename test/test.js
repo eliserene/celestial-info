@@ -79,14 +79,49 @@ describe("helpers", function() {
     expect(fullMoonTest(dateParser("2018-05-29T00:00:00Z"))).to.equal(true);
   });
 
-  it("should return the date of the next new moon", function() {
-    let mayNewMoon = helpers.nextNewMoonDate(dateParser("2018-05-01T00:00Z"));
+  it("should return the date of the next New Moon", function() {
+    let newMoon = 0;
+    let mayNewMoon = helpers.nextMoonPhaseOccurance(
+      dateParser("2018-05-01T00:00Z"),
+      newMoon
+    );
     expect(format(mayNewMoon, "YYYY-MM-DD")).to.equal(
       format(dateParser("2018-05-15T00:00Z"), "YYYY-MM-DD")
     );
   });
 
-  // it("should return the date of the next Full Moon", function() {});
+  it("should return the date of the next Full Moon", function() {
+    let fullMoon = 0.5;
+    let mayFullMoon = helpers.nextMoonPhaseOccurance(
+      dateParser("2018-05-25T00:00Z"),
+      fullMoon
+    );
+    expect(format(mayFullMoon, "YYYY-MM-DD")).to.equal(
+      format(dateParser("2018-05-29T00:00Z"), "YYYY-MM-DD")
+    );
+  });
+
+  it("should return the date of the next Third Quater", function() {
+    let thirdQuater = 0.25;
+    let juneThirdQuater = helpers.nextMoonPhaseOccurance(
+      dateParser("2018-05-25T00:00Z"),
+      thirdQuater
+    );
+    expect(format(juneThirdQuater, "YYYY-MM-DD")).to.equal(
+      format(dateParser("2018-06-06T00:00Z"), "YYYY-MM-DD")
+    );
+  });
+
+  it("should return the date of the next First Quater", function() {
+    let firstQuater = 0.75;
+    let juneFirstQuater = helpers.nextMoonPhaseOccurance(
+      dateParser("2018-05-25T00:00Z"),
+      firstQuater
+    );
+    expect(format(juneFirstQuater, "YYYY-MM-DD")).to.equal(
+      format(dateParser("2018-06-20T00:00Z"), "YYYY-MM-DD")
+    );
+  });
   //
   // describe("moon phase on a particular date", function() {
   //   it("should return the a description of the moon on a given date", function() {});

@@ -49,9 +49,9 @@ const moonPhaseOn = date => {
   };
 };
 
-const nextNewMoonDate = today => {
-  return Iter.of(dates(dateParser(today)))
-    .filter(moonPhaseFilter(0))
+const nextMoonPhaseOccurance = (date, phaseOffset) => {
+  return Iter.of(dates(dateParser(date)))
+    .filter(moonPhaseFilter(phaseOffset))
     .take(1)
     .toArray()[0];
 };
@@ -70,7 +70,6 @@ module.exports = {
   findMoonIllumination,
   moonPhaseAsText,
   moonPhaseOn,
-  nextNewMoonDate,
-  //moonPhaseTest,
+  nextMoonPhaseOccurance,
   moonPhaseFilter
 };
