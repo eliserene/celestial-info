@@ -49,23 +49,19 @@ const moonPhaseOn = date => {
   };
 };
 
-const newMoonTest = date => {
-  let currentPhase = (findMoonIllumination(date).phase + 0) % 1;
-  let nextPhase = (findMoonIllumination(addDays(date, 1)).phase + 0) % 1;
-  return nextPhase - currentPhase < 0;
-};
-
 const nextNewMoonDate = today => {
   return Iter.of(dates(dateParser(today)))
-    .filter(newMoonTest)
+    .filter(moonPhaseFilter(0))
     .take(1)
     .toArray()[0];
 };
 
-const moonPhaseTest = (date, offset) => {
-  let currentPhase = (findMoonIllumination(date).phase + offset) % 1;
-  let nextPhase = (findMoonIllumination(addDays(date, 1)).phase + offset) % 1;
-  return nextPhase - currentPhase < 0;
+const moonPhaseFilter = offset => {
+  return function(date) {
+    let currentPhase = (findMoonIllumination(date).phase + offset) % 1;
+    let nextPhase = (findMoonIllumination(addDays(date, 1)).phase + offset) % 1;
+    return nextPhase - currentPhase < 0;
+  };
 };
 
 module.exports = {
@@ -75,5 +71,6 @@ module.exports = {
   moonPhaseAsText,
   moonPhaseOn,
   nextNewMoonDate,
-  moonPhaseTest
+  //moonPhaseTest,
+  moonPhaseFilter
 };

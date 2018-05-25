@@ -69,20 +69,14 @@ describe("helpers", function() {
 
   it("should return true if the phase occurs on the given date", function() {
     //New moon
-    expect(
-      helpers.moonPhaseTest(dateParser("2018-05-14T00:00:00Z"), 0)
-    ).to.equal(false);
-    expect(
-      helpers.moonPhaseTest(dateParser("2018-05-15T00:00:00Z"), 0)
-    ).to.equal(true);
-    expect(
-      helpers.moonPhaseTest(dateParser("2018-05-16T00:00:00Z"), 0)
-    ).to.equal(false);
+    let newMoonTest = helpers.moonPhaseFilter(0);
+    expect(newMoonTest(dateParser("2018-05-14T00:00:00Z"))).to.equal(false);
+    expect(newMoonTest(dateParser("2018-05-15T00:00:00Z"))).to.equal(true);
+    expect(newMoonTest(dateParser("2018-05-16T00:00:00Z"))).to.equal(false);
 
     //Full moon
-    expect(
-      helpers.moonPhaseTest(dateParser("2018-05-29T00:00:00Z"), 0.5)
-    ).to.equal(true);
+    let fullMoonTest = helpers.moonPhaseFilter(0.5);
+    expect(fullMoonTest(dateParser("2018-05-29T00:00:00Z"))).to.equal(true);
   });
 
   it("should return the date of the next new moon", function() {
