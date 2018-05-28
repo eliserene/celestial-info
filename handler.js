@@ -13,8 +13,7 @@ exports.MoonRiseSet = (req, res) => {
 };
 
 exports.MoonPhase = (req, res) => {
-  let moonIllumination = helpers.findMoonIllumination(req.params.date);
-  let phase = helpers.moonPhaseAsText(moonIllumination.phase);
+  let phase = helpers.moonPhaseOn(req.params.date);
   console.log(moonIllumination);
   console.log(phase);
   res.json({ phase: moonIllumination.phase, text: phase });
@@ -31,9 +30,10 @@ exports.MoonWebhook = (req, res) => {
   let output = "Sorry, I don't know the answer to that.";
 
   if (date != "") {
-    output = `The moon will be ${helpers.moonPhaseAsText(
-      helpers.findMoonIllumination(date).phase
-    )} on ${format(date, "dddd MMMM Do YYYY")}`;
+    output = `The moon will be ${helpers.moonPhaseOn(date)} on ${format(
+      date,
+      "dddd MMMM Do YYYY"
+    )}`;
   } else if (moon_phase != "") {
     console.log(`moon phase = ${moon_phase}`);
     output = findMoonPhaseOccurance(moon_phase);

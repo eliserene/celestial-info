@@ -54,19 +54,6 @@ describe("SunCalc", function() {
 });
 
 describe("helpers", function() {
-  describe("moon phase text", function() {
-    it("should return a description of the moon phase", function() {
-      expect(helpers.moonPhaseAsText(0)).to.equal("New Moon");
-      expect(helpers.moonPhaseAsText(0.1)).to.equal("Waxing Crescent");
-      expect(helpers.moonPhaseAsText(0.25)).to.equal("First Quarter");
-      expect(helpers.moonPhaseAsText(0.4)).to.equal("Waxing Gibbous");
-      expect(helpers.moonPhaseAsText(0.5)).to.equal("Full Moon");
-      expect(helpers.moonPhaseAsText(0.7)).to.equal("Waning Gibbous");
-      expect(helpers.moonPhaseAsText(0.75)).to.equal("Last Quarter");
-      expect(helpers.moonPhaseAsText(0.9)).to.equal("Waning Crescent");
-    });
-  });
-
   describe("moon phase on date", function() {
     it("should return the correct phase for the given date", function() {
       expect(helpers.moonPhaseOn(dateParser("2018-05-15T00:00:00Z"))).to.equal(
