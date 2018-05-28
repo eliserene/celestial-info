@@ -42,11 +42,25 @@ const moonPhaseAsText = phase => {
 };
 
 const moonPhaseOn = date => {
-  let moonIlluminationInfo = findMoonIllumination(date);
-  return {
-    date: date,
-    moonPhaseNo: moonIlluminationInfo.phase
-  };
+  if (moonPhaseFilter(0)(date)) {
+    return "New Moon";
+  } else if (moonPhaseFilter(0.25)(date)) {
+    return "Third Quarter";
+  } else if (moonPhaseFilter(0.5)(date)) {
+    return "Full Moon";
+  } else if (moonPhaseFilter(0.75)(date)) {
+    return "First Quarter";
+  } else if (moonCresentPhaseFilter(0, 0.25)(date)) {
+    return "Waxing Crescent";
+  } else if (moonCresentPhaseFilter(0.25, 0.5)(date)) {
+    return "Waxing Gibbous";
+  } else if (moonCresentPhaseFilter(0.5, 0.75)(date)) {
+    return "Waning Gibbous";
+  } else if (moonCresentPhaseFilter(0.75, 1)(date)) {
+    return "Waning Crescent";
+  } else {
+    return "ERROR";
+  }
 };
 
 const nextMoonPhaseOccurance = (date, phaseOffset) => {
@@ -61,6 +75,13 @@ const moonPhaseFilter = offset => {
     let currentPhase = (findMoonIllumination(date).phase + offset) % 1;
     let nextPhase = (findMoonIllumination(addDays(date, 1)).phase + offset) % 1;
     return nextPhase - currentPhase < 0;
+  };
+};
+
+const moonCresentPhaseFilter = (min, max) => {
+  return function(date) {
+    let illumination = findMoonIllumination(date).phase;
+    return illumination > min && illumination < max;
   };
 };
 
