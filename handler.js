@@ -14,9 +14,7 @@ exports.MoonRiseSet = (req, res) => {
 
 exports.MoonPhase = (req, res) => {
   let phase = helpers.moonPhaseOn(req.params.date);
-  console.log(moonIllumination);
-  console.log(phase);
-  res.json({ phase: moonIllumination.phase, text: phase });
+  res.json({ text: phase });
 };
 
 exports.helloGET = (req, res) => {
